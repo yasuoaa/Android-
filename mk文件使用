@@ -1,0 +1,23 @@
+1，复制文件到指定目录：
+
+  1）使用PRODUCT_COPY_FILES：
+  PRODUCT_COPY_FILES := \
+  frameworks/base/data/etc/telephony.gsm.xml:system/etc/permissions/telephony.gsm.xml \
+  some/other/sourc/file:some/destination \
+  some/other/sourcefile2: some/destination
+  
+  2）使用BUILD_ preBUILD：
+  ##############copy txt file##################
+  include $(CLEAR_VARS)
+  #LOCAL_MODULE := mydata.txt
+  LOCAL_MODULE_TAGS := optional
+  LOCAL_MODULE_CLASS := ETC
+  LOCAL_MODULE_PATH := $(TARGET_OUT)/myfolder
+  LOCAL_SRC_FILES := mydata.txt
+  include $(BUILD_PREBUILT)
+  
+  3）：
+  #create a directory in /system/
+    $(shell mkdir -p $(TARGET_OUT)/file_folder/)
+  #copy stuff
+    $(shell cp $(LOCAL_PATH)/file_folder/* `pwd`/$(TARGET_OUT)/file_folder/)
